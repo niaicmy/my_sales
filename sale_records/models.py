@@ -12,55 +12,59 @@ class GoodsInfo(models.Model):
     商品目录列表类 包含: 商品编码 商品名称 商品预警值 商品销售总数量 商品销售总成本金额 商品销售总金额 商品总利润 商品数据更新日期
     """
     # 商品编码 B00001 T00001
-    commodityCode = models.CharField(max_length=8, primary_key=True)
-    commodityName = models.CharField(max_length=20)
+    commodityCode = models.CharField(max_length=8, primary_key=True, verbose_name='商品编码')
+    commodityName = models.CharField(max_length=20, verbose_name='商品名称')
 
     # 库存预警
-    commodityWarning = models.PositiveIntegerField(default=2)
+    commodityWarning = models.PositiveIntegerField(default=2, verbose_name='商品预警值')
     # 商品销售总数量
-    commodityTotal = models.PositiveIntegerField(default=0)
+    commodityTotal = models.PositiveIntegerField(default=0, verbose_name='商品销售总数')
     # 商品销售总成本
-    commodityCost = models.DecimalField(max_digits=10, decimal_places=2)
+    commodityCost = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='商品总成本')
     # 商品销售总金额
-    commodityTotalPrice = models.DecimalField(max_digits=10, decimal_places=2)
-    # 商品利润
-    commodityProfit = models.DecimalField(max_digits=10, decimal_places=2)
+    commodityTotalPrice = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='商品总金额')
+    # 商品总利润
+    commodityProfit = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='商品总利润')
     # 最后统计时间
-    commodityTime = models.DateField(auto_now_add=True)
+    commodityTime = models.DateField(auto_now_add=True, verbose_name='统计日期')
 
     # 定义元选项
     class Meta:
         db_table = 'GoodsInfo'  # 指定生成的数据表名为GoodsInfo
+        verbose_name = '商品销售汇总'
+        verbose_name_plural = '商品销售汇总'
         ordering = ['commodityCode']
 
 
-# SaleRecords 每单销售记录 行为单位
+# SaleRecords 每日每单销售记录 行为单位
 class SaleRecords(models.Model):
     """
     商品销售类 包含： 商品编码 商品名称 销售数量 销售单价 销售折扣 销售总金额 销售时间 是否成交
     """
-    # 销售唯一序号
-    allNum = models.AutoField(primary_key=True)
+    # 销售唯一序号0x0001
+    saleCode = models.CharField(max_length=10, verbose_name='订单序号')
     # 商品编码 B00001 T00001
-    commodityCode = models.CharField(max_length=8)
-    commodityName = models.CharField(max_length=20)
+    commodityCode = models.CharField(max_length=8, verbose_name='商品编码')
+    commodityName = models.CharField(max_length=20, verbose_name='商品名称')
 
     # 单个品种单次销售数量
-    saleNum = models.PositiveSmallIntegerField(default=1)
+    saleNum = models.PositiveSmallIntegerField(default=1, verbose_name='商品数量')
     # 单价
-    saleUnitPrice = models.DecimalField(max_digits=6, decimal_places=2)
+    saleUnitPrice = models.DecimalField(max_digits=6, decimal_places=2, verbose_name='商品单价')
     # 折扣
-    saleDiscount = models.DecimalField(max_digits=3, decimal_places=2)
+    saleDiscount = models.DecimalField(max_digits=3, decimal_places=2, verbose_name='商品折扣')
     # 成交总金额
-    saleTotalPrice = models.DecimalField(max_digits=8, decimal_places=2)
+    saleTotalPrice = models.DecimalField(max_digits=8, decimal_places=2, verbose_name='商品总金额')
 
-    saleDateTime = models.DateTimeField(auto_now_add=True)
-    saleSuccess = models.BooleanField(default=False)
+    saleDateTime = models.TimeField(auto_now_add=True, verbose_name='销售时间')
+    saleSuccess = models.BooleanField(default=False, verbose_name='是否成功')
 
     # 定义元选项
     class Meta:
         db_table = 'SalesRecords'  # 指定生成的数据表名为SalesRecords
-        ordering = ['allNum']
+        verbose_name = '销售记录'
+        verbose_name_plural = '销售记录'
+        ordering = ['saleCode']
 
 
 # 销售日表 周表 月表 季表 年表 需要吗？ 还是python查询计算？
