@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'sale_records.apps.SalesRecondsConfig',
+    'sale_records.apps.SalesRecordsConfig',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +121,12 @@ TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
-USE_L10N = True
+# 更改时间显示
+# USE_L10N = True
+USE_L10N = False
+DATETIME_FORMAT = 'Y-m-d H:i:s'
+# DATE_FORMAT = 'Y-m-d'
+# TIME_FORMAT = 'H:i:s'
 
 USE_TZ = True
 

@@ -18,4 +18,5 @@ class GoodsInfoAdmin(admin.ModelAdmin):
 class SaleRecordsAdmin(admin.ModelAdmin):
     list_display = ('saleCode', 'commodityCode', 'commodityName', 'saleNum', 'saleUnitPrice', 'saleDiscount',
                     'saleTotalPrice', 'saleDateTime', 'saleSuccess')
+    # list_display = ('saleCode', 'SaleDetails', 'saleDateTime', 'saleSuccess')
     pass
